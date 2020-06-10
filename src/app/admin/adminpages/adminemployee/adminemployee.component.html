@@ -1,0 +1,162 @@
+<div>
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1 id="cr">
+      Employee Registartion
+      <!-- <small>Control panel</small> -->
+    </h1>
+    <ol class="breadcrumb">
+      <li><i class="fa fa-dashboard"></i>Home</li>
+      <li class="active">Employee Registartion</li>
+    </ol>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <form [formGroup]="EmpRegistration" (ngSubmit)="AddEmployee()">
+          <!-- general form elements -->
+          <div class="box box-primary">
+            <div class="box-header">
+              <h3 class="box-title" >Community Details</h3>
+            </div><!-- /.box-header -->
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Community</label>
+                  <select class="form-control" formControlName='commid'>
+                    <!-- <option>--select--</option> -->
+                    <option *ngFor= "let c of communities" value="{{c.sis_community_id}}">{{c.sis_community_name}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Employee Role</label>
+                  <select class="form-control" formControlName='roleid' (change)="type($event)">
+                    <!-- <option>--select--</option> -->
+                    <option *ngFor= "let e of roledata" value="{{e.sis_community_role_id}}">{{e.sis_community_role_name}}</option>
+                  </select>
+
+                </div>
+              </div>
+            </div>
+          </div><!-- /.box -->
+          <div class="box box-primary">
+            <div class="box-header">
+              <h3 class="box-title">Employee Details</h3>
+            </div><!-- /.box-header -->
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Name</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-male"></i>
+                    </div>
+                    <input type="text" class="form-control" formControlName='empname' />
+                  </div><!-- /.input group -->
+                   <!--- START validations --->
+                   <div *ngIf="form.empname.invalid && (form.empname.disabled || form.empname.touched)">
+                    <span *ngIf="form.empname.errors.pattern"> Enter Valid  Name. </span>
+                    <span *ngIf="form.empname.errors.required">Field is required. </span>
+                  </div>
+                 <!---END validations --->
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Phone</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-phone"></i>
+                    </div>
+                    <input type="text" class="form-control" formControlName='empphone'/>
+                  </div><!-- /.input group -->
+                  <div *ngIf="form.empphone.invalid && (form.empphone.dirty || form.empphone.touched)">
+                    <span *ngIf="form.empphone.errors.required">Phone Number is Required</span>
+                    <span *ngIf="form.empphone.errors.pattern">Enter Valid Phone Number(Excluding +91-)</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Email</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-envelope"></i>
+                    </div>
+                    <input type="text" class="form-control" formControlName='empemail'/>
+                  </div><!-- /.input group -->
+                   <!--- START validations --->
+                   <div *ngIf="form.empemail.invalid && (form.empemail.dirty || form.empemail.touched)">
+                    <span *ngIf="form.empemail.errors.required">Email is Required</span>
+                    <span *ngIf="form.empemail.errors.pattern">Enter Valid Email</span>
+                  </div>
+                 <!---END validations --->
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="box box-primary" *ngIf="emprole == 4">
+            <div class="box-header">
+              <h3 class="box-title">Login Details</h3>
+            </div><!-- /.box-header -->
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Username</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-user"></i>
+                    </div>
+                    <input type="text" class="form-control" formControlName="username"/>
+                  </div><!-- /.input group -->
+                  <div *ngIf="form.username.invalid && (form.username.dirty || form.username.touched)">
+                    <span *ngIf="form.username.errors.required">Username is Required</span>
+                    <span *ngIf="form.username.errors.pattern">Enter Valid Username</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Password</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-key"></i>
+                    </div>
+                    <input type="password" class="form-control" formControlName="password" />
+                  </div><!-- /.input group -->
+                  <div *ngIf="form.password.invalid && (form.password.dirty || form.password.touched)">
+                    <span *ngIf="form.password.errors.passwordValidity; else elseBlock">Invalid password</span>
+                    <ng-template  #elseBlock>
+                        <span>password required</span>
+                    </ng-template>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Confirm Password</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-key"></i>
+                    </div>
+                    <input type="password" class="form-control" formControlName="confpassword"/>
+                  </div><!-- /.input group -->
+                  <div *ngIf="form.confpassword.invalid && (form.confpassword.dirty || form.confpassword.touched)">
+                    <span *ngIf="form.confpassword.errors.passwordValidity; else elseBlock">Password Does not match</span>
+                    <ng-template  #elseBlock>
+                        <span>Conform password required</span>
+                    </ng-template>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="box-footer">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+    </form>
+  </section>
+
+</div>

@@ -1,0 +1,145 @@
+
+<div>
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+   <h1 id="cr">
+     Complaints
+     <!-- <small>Control panel</small> -->
+   </h1>
+   <ol class="breadcrumb">
+     <li><i class="fa fa-dashboard"></i>Home</li>
+     <li class="active">complaints</li>
+   </ol>
+ </section>
+ <!-- Button trigger modal -->
+<button type="button" id="btn" class="btn btn-primary" data-toggle="modal" data-target="#tenant">
+ Raise Complaint
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="tenant" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+ <div class="modal-dialog modal-dialog-centered" role="document">
+   <div class="modal-content">
+     <div class="modal-header">
+       <h4 class="modal-title" id="exampleModalLongTitle">Add Tenant</h4>
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+       </button>
+     </div>
+     <div class="modal-body">
+       <!-- <form [formGroup]="TenantReg" (ngSubmit)="tenantRegistration()">
+         <div class="form-group">
+           <label>Name</label>
+           <input type="text"  class="form-control" formControlName="name" />
+         </div>
+         <div *ngIf="form.name.invalid && (form.name.disabled || form.name.touched)"  >
+           <span *ngIf="form.name.errors.required">
+             name is required,Special Charecters not allowed.
+           </span>
+           <span *ngIf="form.name.errors.minlength">
+             name should not small.
+           </span>
+           <span *ngIf="form.name.errors.pattern">
+             Enter valid name.
+           </span>
+           <span *ngIf="form.name.errors.maxlength">
+             name should not longer than 10 charecters
+           </span>
+         </div>
+         <div class="form-group">
+           <label>Email</label>
+           <input type="text"  class="form-control" formControlName="email"/>
+         </div>
+           <div *ngIf="form.email.invalid && (form.email.disabled || form.email.touched)"  >
+             <span *ngIf="form.email.errors.pattern">
+               Enter Valid email ID.
+             </span>
+             <span *ngIf="form.email.errors.required">Email required.
+             </span>
+         </div>
+         <div class="form-group">
+           <label>Phone</label>
+           <input type="text"  class="form-control" formControlName="phone" />
+         </div>
+         <div *ngIf="form.phone.invalid && (form.phone.disabled || form.phone.touched)" >
+           <span *ngIf="form.phone.errors.pattern">
+             Enter Valid Phone Number.
+           </span>
+           <span *ngIf="form.phone.errors.required">Phone Number required.
+           </span>
+           <span *ngIf="form.phone.errors.maxlength">Enter 10 digit mobile number (excluding +91).
+           </span>
+           <span *ngIf="form.phone.errors.minlength">Enter 10 digit mobile number (excluding +91).
+           </span>
+        </div>
+        <div class="form-group">
+         <label>Occupancy Date</label>
+         <input type="date"  class="form-control" formControlName="startdate" />
+       </div>
+       <div *ngIf="form.startdate.invalid && (form.startdate.disabled || form.startdate.touched)" >
+         <span *ngIf="form.startdate.errors.required">Date required.
+         </span>
+       </div>
+         <button type="submit" id="sb" class="btn btn-primary">SUBMIT</button>
+      </form> -->
+     </div>
+     <div class="modal-footer">
+       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+     </div>
+   </div>
+ </div>
+</div>
+
+   <!-- Main content -->
+   <section class="content">
+     <div class="box box-primary">
+       <table #dataTable class="display" style="width:100%">
+         <thead>
+             <tr>
+               <th>Id</th>
+               <th>Name</th>
+               <th>Phone</th>
+               <th>Email</th>
+               <th>Status</th>
+               <th>Action</th>
+             </tr>
+         </thead>
+         <tbody>
+           <tr>
+             <td>1</td>
+             <td>ganesh</td>
+             <td>963852000</td>
+             <td>ganesh@gmail.com</td>
+             <td>Active</td>
+             <td><button type="button" id="ga" class="btn btn-sm btn-primary fa fa-pencil noUnderlineCustom text-white" data-toggle="modal" data-target="#tenantedit"></button> </td>
+           </tr>
+         </tbody>
+     </table>
+     </div>
+   </section>
+   <!-- Modal -->
+     <div class="modal fade" id="tenantedit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+       <div class="modal-dialog modal-dialog-centered" role="document">
+         <div class="modal-content">
+           <div class="modal-header">
+             <h5 class="modal-title" id="exampleModalLongTitle">Edit Tenant</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+             </button>
+           </div>
+           <div class="modal-body">
+             <!-- <form [formGroup]="TenantReg" (ngSubmit)="tenantRegistration()">
+               <div class="form-group">
+                 <label for="name">Name</label>
+                 <input type="text" name="surname" class="form-control" id="name" placeholder="Name" required>
+             </div>
+             </form> -->
+           </div>
+           <div class="modal-footer">
+             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+             <button type="button" class="btn btn-primary">Submit</button>
+           </div>
+         </div>
+       </div>
+     </div>
+</div>

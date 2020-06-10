@@ -1,0 +1,194 @@
+<div>
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+   <h1 id="cr">
+    Resident Registration
+     <!-- <small>Control panel</small> -->
+   </h1>
+   <ol class="breadcrumb">
+     <li><i class="fa fa-dashboard"></i>Home</li>
+     <li class="active"> Resident Registration</li>
+   </ol>
+ </section>
+
+ <!-- Main content -->
+ <section class="content">
+  <form [formGroup]="ResidentReg" (ngSubmit)="AddResident()">
+    <div class="box box-primary">
+      <div class="box-header">
+        <h3 class="box-title" >Community Details</h3>
+      </div><!-- /.box-header -->
+      <div class="row">
+        <div class="col-md-2">
+          <div class="form-group">
+            <label>Community</label>
+            <select class="form-control" formControlName="communityid" (change)="typep($event)">
+              <option *ngFor= "let c of communities" value="{{c.sis_community_id}}">{{c.sis_community_name}}</option>
+            </select>
+          </div>
+        </div>
+        <!-- <div class="col-md-2" *ngIf="displaytype == 1">
+          <div class="form-group">
+            <label>Block</label>
+            <select class="form-control" formControlName='block' (change)="block($event)" >
+              <!-- <option>--select--</option> --
+              <option *ngFor= "let b of blocks" value="{{b.block_id}}">{{b.block_name}}</option>
+            </select>
+          </div>
+        </div> -->
+        <div class="col-md-2" *ngIf="displaytype == 1">
+          <div class="form-group">
+            <label>Unit</label>
+            <select class="form-control" formControlName='unitid'>
+              <!-- <option>--select--</option> -->
+              <option *ngFor="let b of blocknames" value="{{b.unit_id}}">{{b.blockflat_name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-2" *ngIf="displaytype == 2">
+          <div class="form-group">
+            <label>House No</label>
+            <select class="form-control" formControlName='hnumunitid'>
+              <!-- <option>--select--</option> -->
+              <option *ngFor="let b of blocknames" value="{{b.unit_id}}">{{b.house_num}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <label>Role</label>
+            <select class="form-control" formControlName='role' (change)=wtrole($event)>
+              <!-- <option>--select--</option> -->
+              <option *ngFor= "let role of roles" value="{{role.sis_community_role_id}}">{{role.sis_community_role_name}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="box box-primary">
+      <div class="box-header">
+        <h3 class="box-title" >Owner/Tenant Contact Details</h3>
+      </div><!-- /.box-header -->
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Name</label>
+            <div class="input-group">
+              <div class="input-group-addon">
+                <i class="fa fa-male"></i>
+              </div>
+              <input type="text" class="form-control" formControlName='name' />
+            </div><!-- /.input group -->
+             <!--- START validations --->
+             <div *ngIf="form.name.invalid && (form.name.disabled || form.name.touched)">
+              <span *ngIf="form.name.errors.pattern"> Enter Valid  Name. </span>
+              <span *ngIf="form.name.errors.required">Field is required. </span>
+            </div>
+           <!---END validations --->
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Phone</label>
+            <div class="input-group">
+              <div class="input-group-addon">
+                <i class="fa fa-phone"></i>
+              </div>
+              <input type="text" class="form-control" formControlName='phone' />
+            </div><!-- /.input group -->
+            <div *ngIf="form.phone.invalid && (form.phone.dirty || form.phone.touched)">
+              <span *ngIf="form.phone.errors.required">Phone Number is Required</span>
+              <span *ngIf="form.phone.errors.pattern">Enter Valid Phone Number(Excluding +91-)</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email</label>
+            <div class="input-group">
+              <div class="input-group-addon">
+                <i class="fa fa-envelope"></i>
+              </div>
+              <input type="text" class="form-control" formControlName='email'/>
+            </div><!-- /.input group -->
+            <div *ngIf="form.email.invalid && (form.email.dirty || form.email.touched)">
+              <span *ngIf="form.email.errors.required">Email is Required</span>
+              <span *ngIf="form.email.errors.pattern">Enter Valid Email</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3" *ngIf="wtroles == 3">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Start Date</label>
+            <div class="input-group">
+              <div class="input-group-addon">
+                <i class="fa fa-calendar"></i>
+              </div>
+              <input type="month" class="form-control" formControlName='startdate'/>
+            </div><!-- /.input group -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box box-primary">
+      <div class="box-header">
+        <h3 class="box-title" >Login Details</h3>
+      </div><!-- /.box-header -->
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="exampleInputEmail1">User Name</label>
+            <div class="input-group">
+              <div class="input-group-addon">
+                <i class="fa fa-male"></i>
+              </div>
+              <input type="text" class="form-control"  formControlName='username'/>
+            </div><!-- /.input group -->
+            <div *ngIf="form.username.invalid && (form.username.dirty || form.username.touched)">
+              <span *ngIf="form.username.errors.required">Username is Required</span>
+              <span *ngIf="form.username.errors.pattern">Enter Valid Username</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Password</label>
+            <div class="input-group">
+              <div class="input-group-addon">
+                <i class="fa fa-key"></i>
+              </div>
+              <input type="password" class="form-control" formControlName='password'/>
+            </div><!-- /.input group -->
+            <div *ngIf="form.password.invalid && (form.password.dirty || form.password.touched)">
+              <span *ngIf="form.password.errors.passwordValidity; else elseBlock">Invalid password</span>
+              <ng-template  #elseBlock>
+                  <span>password required</span>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Confirm Password</label>
+            <div class="input-group">
+              <div class="input-group-addon">
+                <i class="fa fa-key"></i>
+              </div>
+              <input type="password" class="form-control" formControlName='confpassword'/>
+            </div><!-- /.input group -->
+            <div *ngIf="form.confpassword.invalid && (form.confpassword.dirty || form.confpassword.touched)">
+              <span *ngIf="form.confpassword.errors.passwordValidity; else elseBlock">Password Does not match</span>
+              <ng-template  #elseBlock>
+                  <span>Conform password required</span>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+ </section>
+</div>

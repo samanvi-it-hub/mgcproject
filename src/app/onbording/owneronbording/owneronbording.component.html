@@ -1,0 +1,371 @@
+<header class="main-header">
+  <!-- Logo -->
+  <a class="logo" href="#">
+    <!-- mini logo for sidebar mini 50x50 pixels -->
+    <!-- <span class="logo-mini"><b>A</b>LT</span> -->
+    <!-- logo for regular state and mobile devices -->
+    <span class="logo-lg">
+      <!-- <img src="../../../../assets/imgs/logo.png"> -->
+      <img src="assets/imgs/mgclogo.png">
+    </span>
+  </a>
+  <!-- Header Navbar: style can be found in header.less -->
+  <nav class="navbar navbar-static-top">
+
+  </nav>
+</header>
+
+<div>
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1 id="cr">
+      Owner Onbording
+      <!-- <small>Control panel</small> -->
+    </h1>
+  </section>
+</div>
+<!-- Main content -->
+<section class="content">
+  <form [formGroup]="owneronboardingReg" (ngSubmit)="OnFormSubmit()">
+        <!-- general form elements -->
+        <div class="box box-primary">
+          <div class="box-header">
+            <h3 class="box-title" >Personal Details</h3>
+          </div><!-- /.box-header -->
+          <div class="row">
+             <div class="col-md-4">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Name</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-male"></i>
+                    </div>
+                    <input type="text" class="form-control" formControlName="name" />
+                  </div><!-- /.input group -->
+                  <div *ngIf="form.name.invalid && (form.name.dirty || form.name.touched)">
+                    <span *ngIf="form.name.errors.required">Name is Required</span>
+                    <span *ngIf="form.name.errors.pattern">Enter Valid Name</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Phone</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-phone"></i>
+                    </div>
+                    <input type="text" class="form-control" formControlName="phone" />
+                  </div><!-- /.input group -->
+                  <div *ngIf="form.phone.invalid && (form.phone.dirty || form.phone.touched)">
+                    <span *ngIf="form.phone.errors.required">Phone Number is Required</span>
+                    <span *ngIf="form.phone.errors.pattern">Enter Valid Phone Number(Excluding +91-)</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Email</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-envelope"></i>
+                    </div>
+                    <input type="text" class="form-control" formControlName="email" />
+                  </div><!-- /.input group -->
+                  <div *ngIf="form.email.invalid && (form.email.dirty || form.email.touched)">
+                    <span *ngIf="form.email.errors.required">Email is Required</span>
+                    <span *ngIf="form.email.errors.pattern">Enter Valid Email</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="box box-primary">
+            <div class="box-header">
+              <h3 class="box-title" >Login Details</h3>
+            </div><!-- /.box-header -->
+            <div class="row">
+               <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">User Name</label>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-user"></i>
+                      </div>
+                      <input type="text" class="form-control" formControlName="username" />
+                    </div><!-- /.input group -->
+                    <div *ngIf="form.username.invalid && (form.username.dirty || form.username.touched)">
+                      <span *ngIf="form.username.errors.required">Username is Required</span>
+                      <span *ngIf="form.username.errors.pattern">Enter Valid Username</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Password</label>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-key"></i>
+                      </div>
+                      <input type="password" class="form-control" formControlName="password" />
+                    </div><!-- /.input group -->
+                    <div *ngIf="form.password.invalid && (form.password.dirty || form.password.touched)">
+                      <span *ngIf="form.password.errors.passwordValidity; else elseBlock">Invalid password</span>
+                      <ng-template  #elseBlock>
+                          <span>password required</span>
+                      </ng-template>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Confirm Password</label>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-key"></i>
+                      </div>
+                      <input type="password" class="form-control"  formControlName="confpassword"/>
+                    </div><!-- /.input group -->
+                    <div *ngIf="form.confpassword.invalid && (form.confpassword.dirty || form.confpassword.touched)">
+                      <span *ngIf="form.confpassword.errors.passwordValidity; else elseBlock">Password Does not match</span>
+                      <ng-template  #elseBlock>
+                          <span>Confirm password required</span>
+                      </ng-template>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="box box-primary">
+              <div class="box-header">
+                <h3 class="box-title" >House Details</h3>
+              </div><!-- /.box-header -->
+              <div class="row">
+                 <div class="col-md-2" *ngIf="communitytype === 2">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">House No</label>
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="fa fa-home"></i>
+                        </div>
+                        <input type="text" class="form-control"  formControlName="housenum"/>
+                      </div><!-- /.input group -->
+                      <div *ngIf="form.housenum.invalid && (form.housenum.disabled || form.housenum.touched)">
+                        <span *ngIf="form.housenum.errors.pattern"> Enter Valid  Number. </span>
+                        <span *ngIf="form.housenum.errors.required">Field is required. </span>
+                     </div>
+                    </div>
+                  </div>
+                  <div class="col-md-2" *ngIf="communitytype === 1">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Block</label>
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="fa fa-home"></i>
+                        </div>
+                        <input type="text" class="form-control" formControlName="block" readonly/>
+                      </div><!-- /.input group -->
+                    </div>
+                  </div>
+                  <div class="col-md-2" *ngIf="communitytype === 1">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Flat</label>
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="fa fa-home"></i>
+                        </div>
+                        <input type="text" class="form-control" formControlName="flat" readonly/>
+                      </div><!-- /.input group -->
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Carpet Area(sq.ft)</label>
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="fa fa-home"></i>
+                        </div>
+                        <input type="text" class="form-control" formControlName="carpet_area" />
+                      </div><!-- /.input group -->
+                        <!--- START validations --->
+                        <div *ngIf="form.carpet_area.invalid && (form.carpet_area.disabled || form.carpet_area.touched)">
+                          <span *ngIf="form.carpet_area.errors.pattern"> Enter Valid  Number. </span>
+                          <span *ngIf="form.carpet_area.errors.required">Field is required. </span>
+                        </div>
+                       <!---END validations --->
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Halls</label>
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="fa fa-home"></i>
+                        </div>
+                        <input type="text" class="form-control"  formControlName="halls"  />
+                      </div><!-- /.input group -->
+                      <div *ngIf="form.halls.invalid && (form.halls.disabled || form.halls.touched)">
+                        <span *ngIf="form.halls.errors.pattern"> Enter Valid  Number. </span>
+                        <span *ngIf="form.halls.errors.required">Field is required. </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Bed Rooms</label>
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="fa fa-home"></i>
+                        </div>
+                        <input type="text" class="form-control" formControlName="bedrooms" />
+                      </div><!-- /.input group -->
+                      <div *ngIf="form.bedrooms.invalid && (form.bedrooms.disabled || form.bedrooms.touched)">
+                        <span *ngIf="form.bedrooms.errors.pattern"> Enter Valid  Number. </span>
+                        <span *ngIf="form.bedrooms.errors.required">Field is required. </span>
+                     </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Pooja Room</label>
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="fa fa-home"></i>
+                        </div>
+                        <input type="text" class="form-control" formControlName="poojaroom" />
+                      </div><!-- /.input group -->
+                      <div *ngIf="form.poojaroom.invalid && (form.poojaroom.disabled || form.poojaroom.touched)">
+                        <span *ngIf="form.poojaroom.errors.pattern"> Enter Valid  Number. </span>
+                        <span *ngIf="form.poojaroom.errors.required">Field is required. </span>
+                     </div>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Kitchen</label>
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="fa fa-home"></i>
+                        </div>
+                        <input type="text" class="form-control" formControlName="kitchen" />
+                      </div><!-- /.input group -->
+                      <div *ngIf="form.kitchen.invalid && (form.kitchen.disabled || form.kitchen.touched)">
+                        <span *ngIf="form.kitchen.errors.pattern"> Enter Valid  Number. </span>
+                        <span *ngIf="form.kitchen.errors.required">Field is required. </span>
+                     </div>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Dining Hall</label>
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="fa fa-home"></i>
+                        </div>
+                        <input type="text" class="form-control"  formControlName="dyninghall"/>
+                      </div><!-- /.input group -->
+                      <div *ngIf="form.dyninghall.invalid && (form.dyninghall.disabled || form.dyninghall.touched)">
+                        <span *ngIf="form.dyninghall.errors.pattern"> Enter Valid  Number. </span>
+                        <span *ngIf="form.dyninghall.errors.required">Field is required. </span>
+                     </div>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Balcony</label>
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="fa fa-home"></i>
+                        </div>
+                        <input type="text" class="form-control" formControlName="balcony" />
+                      </div><!-- /.input group -->
+                      <div *ngIf="form.balcony.invalid && (form.balcony.disabled || form.balcony.touched)">
+                        <span *ngIf="form.balcony.errors.pattern"> Enter Valid  Number. </span>
+                        <span *ngIf="form.balcony.errors.required">Field is required. </span>
+                     </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Bath Rooms</label>
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="fa fa-home"></i>
+                        </div>
+                        <input type="text" class="form-control" formControlName="bothroom" />
+                      </div><!-- /.input group -->
+                      <div *ngIf="form.bothroom.invalid && (form.bothroom.disabled || form.bothroom.touched)">
+                        <span *ngIf="form.bothroom.errors.pattern"> Enter Valid  Number. </span>
+                        <span *ngIf="form.bothroom.errors.required">Field is required. </span>
+                     </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <div class="box box-primary">
+              <div class="box-header">
+                <h3 class="box-title" >Furniture & Fixtures</h3>
+              </div><!-- /.box-header -->
+              <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>Type</label>
+                      <select class="form-control" formControlName="h_type">
+                        <option>Un-Furnished</option>
+                        <option>Semi-Furnished</option>
+                        <option>Fully-Furnished</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Light</label>
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="fa fa-asterisk"></i>
+                        </div>
+                        <input type="text" class="form-control" formControlName="lights" />
+                      </div><!-- /.input group -->
+                      <div *ngIf="form.lights.invalid && (form.lights.disabled || form.lights.touched)">
+                        <span *ngIf="form.lights.errors.pattern"> Enter Valid  Number. </span>
+                     </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Fan</label>
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="fa fa-home"></i>
+                        </div>
+                        <input type="text" class="form-control" formControlName="fans" />
+                      </div><!-- /.input group -->
+                      <div *ngIf="form.fans.invalid && (form.fans.disabled || form.fans.touched)">
+                        <span *ngIf="form.fans.errors.pattern"> Enter Valid  Number. </span>
+                     </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Ac</label>
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="fa fa-home"></i>
+                        </div>
+                        <input type="text" class="form-control" formControlName="ac" />
+                      </div><!-- /.input group -->
+                      <div *ngIf="form.ac.invalid && (form.ac.disabled || form.ac.touched)">
+                        <span *ngIf="form.ac.errors.pattern"> Enter Valid  Number. </span>
+                     </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        <button type="submit" class="btn btn-primary">Submit & Logout</button>
+  </form>
+</section>
+
+
+

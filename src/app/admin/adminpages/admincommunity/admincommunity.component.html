@@ -1,0 +1,427 @@
+<div>
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1 id="cr">
+      Community Registration
+      <!-- <small>Control panel</small> -->
+    </h1>
+    <ol class="breadcrumb">
+      <li><i class="fa fa-dashboard"></i>Home</li>
+      <li class="active">Community Registartion</li>
+    </ol>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <form [formGroup]="CommunityReg"  (ngSubmit)="FormSubmit()">
+          <!-- general form elements -->
+          <div class="box box-primary">
+            <div class="box-header">
+              <h3 class="box-title" >Community</h3>
+            </div><!-- /.box-header -->
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Name</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-home"></i>
+                    </div>
+                    <input type="text" class="form-control" formControlName="comname" />
+                  </div><!-- /.input group -->
+                  <div *ngIf="form.comname.invalid && (form.comname.disabled || form.comname.touched)">
+                    <span *ngIf="form.comname.errors.required">
+                      name is required,Special Charecters not allowed.
+                    </span>
+                    <span *ngIf="form.comname.errors.minlength">
+                      name should not small.
+                    </span>
+                    <span *ngIf="form.comname.errors.pattern">
+                      Enter valid name.
+                    </span>
+                    <span *ngIf="form.comname.errors.maxlength">
+                      name should not longer than 20 charecters
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Short Name</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-home"></i>
+                    </div>
+                    <input type="text" class="form-control" formControlName="comshortname"  />
+                  </div><!-- /.input group -->
+                   <!--- START validations --->
+                      <div *ngIf="form.comshortname.invalid && (form.comshortname.disabled || form.comshortname.touched)" >
+                        <span *ngIf="form.comshortname.errors.required">
+                          name is required,Special Charecters not allowed.
+                        </span>
+                        <span *ngIf="form.comshortname.errors.minlength">
+                          name should not small.
+                        </span>
+                        <span *ngIf="form.comshortname.errors.pattern">
+                          Enter valid name.
+                        </span>
+                        <span *ngIf="form.comshortname.errors.maxlength">
+                          name should not longer than 4 charecters
+                        </span>
+                        <span *ngIf="form.comshortname.errors.cannotContainSpace">Space Charecters are not allowed.
+                        </span>
+                    </div>
+             <!---END validations --->
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Type</label>
+                  <select class="form-control" formControlName='type' (change)="type($event)">
+                    <option *ngFor="let t of communitytype" value="{{t.sis_community_type_id}}">{{t.sis_community_type_name}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Locality</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-building-o"></i>
+                    </div>
+                    <input type="text" class="form-control" formControlName="locality" />
+                  </div><!-- /.input group -->
+                   <!--- START validations --->
+                    <div *ngIf="form.locality.invalid && (form.locality.disabled || form.locality.touched)" >
+                      <span *ngIf="form.locality.errors.required">
+                        name is required,Special Charecters not allowed.
+                      </span>
+                      <span *ngIf="form.locality.errors.minlength">
+                        name should not small.
+                      </span>
+                      <span *ngIf="form.locality.errors.pattern">
+                        Enter valid name.
+                      </span>
+                      <span *ngIf="form.locality.errors.maxlength">
+                        name should not longer than 10 charecters
+                      </span>
+                      <span *ngIf="form.locality.errors.cannotContainSpace">Space Charecters are not allowed.
+                      </span>
+                  </div>
+           <!---END validations --->
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">City</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-building-o"></i>
+                    </div>
+                    <input type="text" class="form-control" formControlName="city" />
+                  </div><!-- /.input group -->
+                   <!--- START validations --->
+                      <div *ngIf="form.city.invalid && (form.city.disabled || form.city.touched)"  >
+                        <span *ngIf="form.city.errors.required">
+                          name is required,Special Charecters not allowed.
+                        </span>
+                        <span *ngIf="form.city.errors.minlength">
+                          name should not small.
+                        </span>
+                        <span *ngIf="form.city.errors.pattern">
+                          Enter valid name.
+                        </span>
+                        <span *ngIf="form.city.errors.maxlength">
+                          name should not longer than 10 charecters
+                        </span>
+                        <span *ngIf="form.city.errors.cannotContainSpace">Space Charecters are not allowed.
+                        </span>
+                    </div>
+           <!---END validations --->
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">State</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-building-o"></i>
+                    </div>
+                    <input type="text" class="form-control"  formControlName="state" />
+                  </div><!-- /.input group -->
+                   <!--- START validations --->
+                      <div *ngIf="form.state.invalid && (form.state.disabled || form.state.touched)" >
+                        <span *ngIf="form.state.errors.required">
+                          name is required,Special Charecters not allowed.
+                        </span>
+                        <span *ngIf="form.state.errors.minlength">
+                          name should not small.
+                        </span>
+                        <span *ngIf="form.state.errors.pattern">
+                          Enter valid name.
+                        </span>
+                        <span *ngIf="form.state.errors.maxlength">
+                          name should not longer than 10 charecters
+                        </span>
+                        <span *ngIf="form.state.errors.cannotContainSpace">Space Charecters are not allowed.
+                        </span>
+                    </div>
+              <!---END validations --->
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">PIN</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-thumb-tack"></i>
+                    </div>
+                    <input type="text" class="form-control"  formControlName="pin" />
+                  </div><!-- /.input group -->
+                   <!--- START validations --->
+                    <div *ngIf="form.pin.invalid && (form.pin.disabled || form.pin.touched)" >
+                      <span *ngIf="form.pin.errors.required">
+                        PIN is required.
+                      </span>
+                      <span *ngIf="form.pin.errors.pattern">
+                        Enter PIN Number.
+                      </span>
+                      <span *ngIf="form.pin.errors.cannotContainSpace">Space Charecters are not allowed.
+                      </span>
+                  </div>
+                  <!---END validations --->
+                </div>
+              </div>
+            </div>
+          </div><!-- /.box -->
+          <div class="box box-primary">
+            <div class="box-header">
+              <h3 class="box-title">Contact Person Details</h3>
+            </div><!-- /.box-header -->
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Name</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-male"></i>
+                    </div>
+                    <input type="text" class="form-control" formControlName="spoc1_Name" />
+                  </div><!-- /.input group -->
+                   <!--- START validations --->
+                    <div *ngIf="form.spoc1_Name.invalid && (form.spoc1_Name.disabled || form.spoc1_Name.touched)"  >
+                      <span *ngIf="form.spoc1_Name.errors.required">
+                        name is required,Special Charecters not allowed.
+                      </span>
+                      <span *ngIf="form.spoc1_Name.errors.minlength">
+                        name should not small.
+                      </span>
+                      <span *ngIf="form.spoc1_Name.errors.pattern">
+                        Enter valid name.
+                      </span>
+                      <span *ngIf="form.spoc1_Name.errors.maxlength">
+                        name should not longer than 10 charecters
+                      </span>
+                    </div>
+                   <!---END validations --->
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Phone</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-phone"></i>
+                    </div>
+                    <input type="text" class="form-control" formControlName="spoc1_ph" />
+                  </div><!-- /.input group -->
+                   <!--- START validations --->
+                      <div *ngIf="form.spoc1_ph.invalid && (form.spoc1_ph.disabled || form.spoc1_ph.touched)" >
+                        <span *ngIf="form.spoc1_ph.errors.pattern">
+                          Enter Valid Phone Number.
+                        </span>
+                        <span *ngIf="form.spoc1_ph.errors.required">Phone Number required.
+                        </span>
+                        <span *ngIf="form.spoc1_ph.errors.maxlength">Enter 10 digit mobile number (excluding +91).
+                        </span>
+                        <span *ngIf="form.spoc1_ph.errors.minlength">Enter 10 digit mobile number (excluding +91).
+                        </span>
+                     </div>
+                   <!---END validations --->
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Email</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-envelope"></i>
+                    </div>
+                    <input type="text" class="form-control" formControlName="spoc1_email" />
+                  </div><!-- /.input group -->
+                   <!--- START validations --->
+                      <div *ngIf="form.spoc1_email.invalid && (form.spoc1_email.disabled || form.spoc1_email.touched)"  >
+                        <span *ngIf="form.spoc1_email.errors.pattern">
+                          Enter Valid email ID.
+                        </span>
+                        <span *ngIf="form.spoc1_email.errors.required">Email required.
+                        </span>
+                     </div>
+                  <!---END validations --->
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Name</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-male"></i>
+                    </div>
+                    <input type="text" class="form-control" formControlName="spoc2_Name" />
+                  </div><!-- /.input group -->
+                   <!--- START validations --->
+                      <div *ngIf="form.spoc2_Name.invalid && (form.spoc2_Name.disabled || form.spoc2_Name.touched)" >
+                        <span *ngIf="form.spoc2_Name.errors.required">
+                          name is required,Special Charecters not allowed.
+                        </span>
+                        <span *ngIf="form.spoc2_Name.errors.minlength">
+                          name should not small.
+                        </span>
+                        <span *ngIf="form.spoc2_Name.errors.pattern">
+                          Enter valid name.
+                        </span>
+                        <span *ngIf="form.spoc2_Name.errors.maxlength">
+                          name should not longer than 10 charecters
+                        </span>
+                    </div>
+                  <!---END validations --->
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Phone</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-phone"></i>
+                    </div>
+                    <input type="text" class="form-control" formControlName="spoc2_ph" />
+                  </div><!-- /.input group -->
+                   <!--- START validations --->
+                      <div *ngIf="form.spoc2_ph.invalid && (form.spoc2_ph.disabled || form.spoc2_ph.touched)"  >
+                        <span *ngIf="form.spoc2_ph.errors.pattern">
+                          Enter Valid Phone Number.
+                        </span>
+                        <span *ngIf="form.spoc2_ph.errors.required">Phone Number required.
+                        </span>
+                        <span *ngIf="form.spoc2_ph.errors.maxlength">Enter 10 digit mobile number (excluding +91).
+                        </span>
+                        <span *ngIf="form.spoc2_ph.errors.minlength">Enter 10 digit mobile number (excluding +91).
+                        </span>
+                    </div>
+                 <!---END validations --->
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Email</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-envelope"></i>
+                    </div>
+                    <input type="text" class="form-control" formControlName="spoc2_email" />
+                  </div><!-- /.input group -->
+                   <!--- START validations --->
+                    <div *ngIf="form.spoc2_email.invalid && (form.spoc2_email.disabled || form.spoc2_email.touched)" >
+                      <span *ngIf="form.spoc2_email.errors.pattern">
+                        Enter Valid email ID.
+                      </span>
+                      <span *ngIf="form.spoc2_email.errors.required">Email required.
+                      </span>
+                    </div>
+                  <!---END validations --->
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="box box-primary">
+            <div class="box-header">
+              <h3 class="box-title">Details</h3>
+            </div><!-- /.box-header -->
+            <div class="row">
+              <div class="col-md-6">
+                <div *ngIf = "typee;then villa else tower"></div>
+                <ng-template #villa>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Villas</label>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-home"></i>
+                      </div>
+                      <input type="text" formControlName="villa" class="form-control" />
+                    </div><!-- /.input group -->
+                  </div>
+                </ng-template>
+                <ng-template #tower>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Blocks</label>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-home"></i>
+                      </div>
+                      <input type="text" formControlName="number_of_blocks" (input)="Blocks($event)" class="form-control" />
+                    </div><!-- /.input group -->
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+            <div class="row">
+              <div *ngFor="let block of t.controls; let i = index">
+                <h5>BLOCK {{i + 1}} DETAILS</h5>
+                <div [formGroup]="block" class="form-row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Block Name</label>
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="fa fa-home"></i>
+                        </div>
+                        <input type="text" formControlName="block" class="form-control" />
+                      </div><!-- /.input group -->
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">No of Flats</label>
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="fa fa-home"></i>
+                        </div>
+                        <input type="text" formControlName="flats" class="form-control" />
+                      </div><!-- /.input group -->
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="box-footer">
+            <div class="form-group">
+              <label>
+                <input type="checkbox" class="minimal" checked disabled/>
+                Please Check The Box, If You Want To Create Owners Automatically.
+              </label>
+            </div>
+            <button type="submit" class="btn btn-primary" >Submit</button>
+          </div>
+    </form>
+  </section>
+
+</div>

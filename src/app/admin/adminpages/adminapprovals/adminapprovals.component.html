@@ -1,0 +1,76 @@
+<div>
+   <!-- Content Header (Page header) -->
+   <section class="content-header">
+    <h1 id="cr">
+     Approvals
+      <!-- <small>Control panel</small> -->
+    </h1>
+    <ol class="breadcrumb">
+      <li><i class="fa fa-dashboard"></i>Home</li>
+      <li class="active">Approvals</li>
+    </ol>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <form [formGroup]="searchReg" (ngSubmit)="Search()">
+      <!-- general form elements -->
+      <div class="box box-primary">
+        <div class="box-header">
+          <!-- <h3 class="box-title" >Community</h3> -->
+        </div><!-- /.box-header -->
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Community</label>
+              <select class="form-control" formControlName='community'>
+                <option>--select--</option>
+                <option *ngFor= "let c of communities" value="{{c.sis_community_id}}">{{c.sis_community_name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Status</label>
+              <select class="form-control" formControlName='status'>
+                <option value="approved">Approved</option>
+                <option value="pending">Pending</option>
+                <option value="Not Submited">Not Submited</option>
+              </select>
+            </div>
+
+          </div>
+          <div class="col-md-4">
+            <button  type="submit" class="sb btn btn-primary">Search</button>
+            <button  (click)="Clear()"  class="sb btn btn-primary">Clear</button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="box box-primary">
+      <table #dataTable class="display" style="width:100%">
+        <thead>
+            <tr>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of  records">
+            <td>{{p.owner_id}}</td>
+            <td>{{p.owner_name}}</td>
+            <td>{{p.owner_phone}}</td>
+            <td>{{p.owner_email}}</td>
+            <td>{{p.owner_status}}</td>
+            <td><button  class="btn btn-primary btn-sm" *ngIf="p.owner_status !=='Not Submited' && p.owner_status !=='approved'" (click)="send(p.owner_id)">APPROVE</button></td>
+          </tr>
+        </tbody>
+    </table>
+    </div>
+  </section>
+
+</div>
