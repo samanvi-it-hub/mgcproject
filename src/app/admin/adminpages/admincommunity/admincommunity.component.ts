@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../admin.service';
 import { FormGroup, FormArray, FormControl, Validators, FormBuilder  } from '@angular/forms';
 import { UsernameValidator } from '../validations/validator';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-admincommunity',
   templateUrl: './admincommunity.component.html',
@@ -13,7 +15,7 @@ export class AdmincommunityComponent implements OnInit {
   communitytype;
   typee;
 
-  constructor(private frmBuilder: FormBuilder, private adminservice: AdminService) {
+  constructor(private frmBuilder: FormBuilder, private adminservice: AdminService, private router: Router, private toastr: ToastrService) {
 
     this.CommunityReg = this.frmBuilder.group({
       comname: new FormControl('', [Validators.required,
@@ -46,11 +48,11 @@ export class AdmincommunityComponent implements OnInit {
       villa: new FormControl(),
       spoc1_Name: new FormControl('', [Validators.required,
         Validators.minLength(1),
-        Validators.maxLength(10),
+        Validators.maxLength(20),
         ]),
       spoc2_Name: new FormControl('', [Validators.required,
         Validators.minLength(1),
-        Validators.maxLength(10),
+        Validators.maxLength(20),
        ]),
       spoc1_ph: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10),
         Validators.pattern('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-s./0-9]*$')
@@ -116,13 +118,10 @@ Blocks(e) {
   FormSubmit() {
     console.log(this.CommunityReg.value);
     this.adminservice.registerCommunity(this.CommunityReg.value).subscribe(
-      res => alert('Community Registration Successfull..'),
-      error => alert('Error At community Registration')
+      res => this.toastr.success('Community Registration success & Email sending success', 'SUCCESS'),
+      error => this.toastr.error('Error At community Registration', 'ERROR')
     );
-
-    setTimeout(() => {
-      this.CommunityReg.reset({});
-    }, 2000);
+    this.router.navigate(['/admin/communitylist']);
   }
 
   ngOnInit(): void {

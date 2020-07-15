@@ -1,0 +1,82 @@
+<div>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+     <h1 id="cr">
+        Maintenance
+       <!-- <small>Control panel</small> -->
+     </h1>
+     <ol class="breadcrumb">
+       <li><i class="fa fa-dashboard"></i>Home</li>
+       <li class="active">Maintenance</li>
+     </ol>
+   </section>
+   <section class="content">
+
+    <form [formGroup]="search" (ngSubmit)="Search()" >
+        <!-- general form elements -->
+        <div class="box box-primary">
+             <div class="box-header">
+               <h3 class="box-title" >Search</h3>
+             </div><!-- /.box-header -->
+             <div class="row">
+               
+              
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Start Date</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                    <input type="month" class="form-control" formControlName='startdate' />
+                  </div><!-- /.input group -->
+                </div>
+
+              </div>
+
+              <div class="col-md-4">
+               <div class="form-group">
+                 <label for="exampleInputEmail1">End Date</label>
+                 <div class="input-group">
+                   <div class="input-group-addon">
+                     <i class="fa fa-calendar"></i>
+                   </div>
+                   <input type="month" class="form-control" formControlName='enddate' />
+                 </div><!-- /.input group -->
+               </div>
+
+             </div>
+               <button id="sub" type="submit" class="btn btn-primary" [disabled]="!search.valid">Submit</button>
+             </div>
+        </div>
+        </form>
+    
+    <div class="box box-primary">
+      <table #dataTable class="display" style="width:100%">
+        <thead>
+            <tr>
+             <th>Id</th>
+             <th>Maintanance Month</th>
+             <th>Maintanance Amount</th>
+             <th>Dues</th>
+             <th>Utility</th>
+             <th>Discounts</th>
+             <th>Total</th>
+             
+            </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let m of Maintenance">
+            <td>{{m.invoice_id}}</td>
+            <td>{{m.maintanance_month}}</td>
+            <td>{{m.maintenance_amt}}</td>
+            <td>{{m.due_amt}}</td>
+            <td>{{m.otherdues}}</td>
+            <td>{{m.discounts}}</td>
+            <td>{{m.total}}</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+  </section>
+</div>

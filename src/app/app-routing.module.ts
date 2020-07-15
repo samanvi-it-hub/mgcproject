@@ -11,6 +11,7 @@ const routes: Routes = [
   {path: 'admin', loadChildren: () => import('./admin/adminpages/admin.module').then(m => m.AdminModule)},
   {path: 'onboard', loadChildren: () => import('./onbording/onbording.module').then(m => m.OnbordingModule)},
   {path: 'owner', loadChildren: () => import('./owner/ownerpages/ownerpages.module').then(m => m.OwnerpagesModule)},
+  {path: 'tenant', loadChildren: () => import('./tenant/tenantpages/tenantpages.module').then(m => m.TenantpagesModule)},
   {path: 'supervisor', loadChildren: () => import('./supervisor/supervisorpages/supervisorpages.module').then(m => m.SupervisorpagesModule)}
 ];
 

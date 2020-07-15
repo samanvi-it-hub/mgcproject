@@ -1,0 +1,58 @@
+<div>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+     <h1 id="cr">
+      Tenant Reports
+       <!-- <small>Control panel</small> -->
+     </h1>
+
+   </section>
+
+   <!-- Main content -->
+   <section class="content">
+     <form [formGroup]="searchReg" (ngSubmit)="Search()">
+       <!-- general form elements -->
+       <div class="box box-primary">
+         <div class="box-header">
+           <!-- <h3 class="box-title" >Community</h3> -->
+         </div><!-- /.box-header -->
+         <div class="row">
+           <div class="col-md-4">
+             <div class="form-group">
+               <label>Community</label>
+               <select class="form-control" formControlName='community'>
+                 <option *ngFor= "let c of communities" value="{{c.sis_community_id}}">{{c.sis_community_name}}</option>
+               </select>
+             </div>
+           </div>
+           <div class="col-md-4">
+             <button  type="submit" class="sb btn btn-primary">Search</button>
+             <button  (click)="Clear()"  class="sb btn btn-primary">Clear</button>
+           </div>
+          </div>
+       </div>
+     </form>
+     <div class="box box-primary">
+       <table #dataTable class="display" style="width:100%">
+         <thead>
+             <tr>
+
+               <th>Name</th>
+               <th>Phone</th>
+               <th>Email</th>
+
+             </tr>
+         </thead>
+         <tbody>
+           <tr *ngFor="let p of  tenants">
+             <td>{{p.tent_name}}</td>
+             <td>{{p.tent_phone}}</td>
+             <td>{{p.tent_email}}</td>
+            </tr>
+         </tbody>
+     </table>
+     </div>
+   </section>
+
+ </div>
+

@@ -18,11 +18,12 @@ import { OwnercomplaintComponent } from './ownercomplaint/ownercomplaint.compone
 import { OwnermemberComponent } from './ownermember/ownermember.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { OwnerreceiptsComponent } from './ownerreceipts/ownerreceipts.component';
 
 
 @NgModule({
   // tslint:disable-next-line:max-line-length
-  declarations: [OwnerdashboardComponent, OwnersidenavComponent, OwnerpagesComponent, OwnerheaderComponent, OwnerfooterComponent, OwnerprofileComponent, OwnerpropertyComponent, OwnertenantsComponent, OwnerreportsComponent, OwnerboardmembersComponent, OwnermaintanceComponent, OwnercomplaintComponent, OwnermemberComponent],
+  declarations: [OwnerdashboardComponent, OwnersidenavComponent, OwnerpagesComponent, OwnerheaderComponent, OwnerfooterComponent, OwnerprofileComponent, OwnerpropertyComponent, OwnertenantsComponent, OwnerreportsComponent, OwnerboardmembersComponent, OwnermaintanceComponent, OwnercomplaintComponent, OwnermemberComponent, OwnerreceiptsComponent],
   imports: [
     CommonModule,
     OwnerpagesRoutingModule,

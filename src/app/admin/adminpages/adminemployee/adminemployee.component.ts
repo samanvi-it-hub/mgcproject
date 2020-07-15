@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../admin.service';
 import { FormGroup, FormArray, FormControl, Validators, FormBuilder  } from '@angular/forms';
 import { UsernameValidator } from '../validations/validator';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-adminemployee',
   templateUrl: './adminemployee.component.html',
@@ -14,7 +15,7 @@ export class AdminemployeeComponent implements OnInit {
   roledata;
   emprole;
 
-  constructor(private fb: FormBuilder, private adminservice: AdminService) {
+  constructor(private fb: FormBuilder, private adminservice: AdminService, private toastr: ToastrService) {
     this.EmpRegistration = this.fb.group({
       commid: new FormControl(),
       roleid: new FormControl(),
@@ -76,8 +77,8 @@ export class AdminemployeeComponent implements OnInit {
     const d = this.EmpRegistration.value;
     console.log(d);
     this.adminservice.AddEmpSupFromAdmin(d).subscribe(
-      res => alert('Employee Registration Successful'),
-      err => alert('Error At Registration')
+      res => this.toastr.success('Registarion Success..', 'SUCCESS'),
+      err => this.toastr.error('Error At Registartion', 'ERROR')
     );
     this.EmpRegistration.reset();
   }

@@ -16,6 +16,12 @@ import { AdminService } from './admin.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AdminbroadcastComponent } from './adminbroadcast/adminbroadcast.component';
+import { AdminreportsComponent } from './adminreports/adminreports.component';
+import { AdmintenantreportsComponent } from './admintenantreports/admintenantreports.component';
+import { AdminresidentreportsComponent } from './adminresidentreports/adminresidentreports.component';
+import { AdminownerreportsComponent } from './adminownerreports/adminownerreports.component';
+import { AdmincommunitylistComponent } from './admincommunitylist/admincommunitylist.component';
+import { AdminboardmemberssearchComponent } from './adminboardmemberssearch/adminboardmemberssearch.component';
 
 
 
@@ -31,7 +37,13 @@ import { AdminbroadcastComponent } from './adminbroadcast/adminbroadcast.compone
     AdminemployeeComponent,
     AdminapprovalsComponent,
     AdminpagesComponent,
-    AdminbroadcastComponent
+    AdminbroadcastComponent,
+    AdminreportsComponent,
+    AdmintenantreportsComponent,
+    AdminresidentreportsComponent,
+    AdminownerreportsComponent,
+    AdmincommunitylistComponent,
+    AdminboardmemberssearchComponent
   ],
   imports: [
     CommonModule,

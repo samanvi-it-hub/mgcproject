@@ -32,6 +32,7 @@ export class OwneronbordingComponent implements OnInit {
       block: new FormControl(),
       block_id: new FormControl(),
       flat: new FormControl(),
+      occupancy: new FormControl(),
       h_type: new FormControl(),
       halls: new FormControl('', [Validators.required, Validators.pattern('[0-9]*')]),
       bedrooms: new FormControl('', [Validators.required, Validators.pattern('[0-9]*') ]),

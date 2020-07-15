@@ -12,6 +12,84 @@
   </section>
   <!-- Main content -->
   <section class="content">
+    <div class="box box-primary">
+        <div class="container">
+          <form [formGroup]="GenMaintenance" (ngSubmit)="getMaintenance()">
+          <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Community Name</label>
+                  <input type="text"  class="form-control" value="{{communityname}}" readonly />
+                </div>
+              </div>
+              <div class="col-md-4" *ngIf="typeofborh === 1">
+                <div class="form-group">
+                  <label>Blocks</label>
+                  <select class="form-control" formControlName='block_id'>
+                    <option *ngFor="let b of blocks" value="{{b.block_id}}">{{b.block_name}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-4" *ngIf="typeofborh === 2">
+                <div class="form-group">
+                  <label>House No.</label>
+                  <select class="form-control" formControlName='house_block_id'>
+                    <option *ngFor="let h of housenums" value="{{h.unit_id}}">{{h.house_num}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Date</label>
+                  <input type="month" pattern="\d{2}-\d{4}" class="form-control" formControlName="date" />
+                </div>
+              </div>
+          </div>
+          <button type="submit"  class="btn btn-primary"  >Get Maintenance</button>
+        </form>
+        </div>
+    </div>
 
+
+
+
+
+
+    <div class="box box-primary">
+      <form [formGroup]="GenMaintenance">
+        <table #dataTable class="display" style="width:100%">
+              <thead>
+                <tr>
+                <th>House No.</th>
+                <th>Maintenance Amount</th>
+                <th>Due Amount</th>
+                <th>Discounts</th>
+                <th>Other Amount</th>
+                </tr>
+             </thead>
+             <tbody *ngFor="let emp of t.controls; let i = index">
+
+                 <tr [formGroup]="emp" class="form-row">
+                   <td >
+                      <input type="text"  class="form-control" formControlName="flat_num" readonly />
+                   </td>
+                   <td>
+                      <input type="text"  class="form-control" formControlName="maintenance_amt" readonly/>
+                   </td>
+                   <td >
+                      <input type="number"  class="form-control" formControlName="due" />
+                   </td>
+                   <td>
+                      <input type="number"  class="form-control" formControlName="discounts" />
+                   </td>
+                   <td>
+                      <input type="number"  class="form-control" formControlName="others" />
+                   </td>
+                 </tr>
+             </tbody>
+        </table>
+        <button id="sub1" class="btn btn-primary" (click)="save()">Submit</button>
+      </form>
+    </div>
   </section>
 </div>

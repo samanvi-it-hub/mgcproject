@@ -1,0 +1,84 @@
+<div>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1 id="cr">
+        Board Members
+        <!-- <small>Control panel</small> -->
+      </h1>
+      <ol class="breadcrumb">
+        <li><i class="fa fa-dashboard"></i>Home</li>
+        <li class="active">Board Members</li>
+      </ol>
+    </section>
+    <button type="button" id="btn" class="btn btn-primary" [routerLink]="'/admin/boardmembers'">ADD BOARD MEMBERS</button>
+    <section class="content">
+        <form [formGroup]="BmForm" (ngSubmit)="BmReg()" >
+            <!-- general form elements -->
+            <div class="box box-primary">
+                 <div class="box-header">
+                   <h3 class="box-title" >Search</h3>
+                 </div><!-- /.box-header -->
+                 <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                          <label>Community</label>
+                          <select class="form-control" formControlName='commid'>
+                            <option>--select--</option>
+                            <option *ngFor= "let c of communities" value="{{c.sis_community_id}}">{{c.sis_community_name}}</option>
+                          </select>
+                        </div>
+
+                      </div>
+                   <div class="col-md-3">
+                     <div class="form-group">
+                       <label for="exampleInputEmail1">Start Date</label>
+                       <div class="input-group">
+                         <div class="input-group-addon">
+                           <i class="fa fa-calendar"></i>
+                         </div>
+                         <input type="month" class="form-control"  formControlName='startdate' />
+                       </div><!-- /.input group -->
+                     </div>
+
+                   </div>
+                   <div class="col-md-3">
+                     <div class="form-group">
+                       <label for="exampleInputEmail1">End Date</label>
+                       <div class="input-group">
+                         <div class="input-group-addon">
+                           <i class="fa fa-calendar"></i>
+                         </div>
+                         <input type="month" class="form-control" formControlName='enddate' />
+                       </div><!-- /.input group -->
+                     </div>
+
+                   </div>
+                   <button id="sub" type="submit" class="btn btn-primary" [disabled]="!BmForm.valid">Search</button>
+                 </div>
+            </div>
+            </form>
+
+
+            <div class="box box-primary">
+                <table #dataTable class="display" style="width:100%">
+                  <thead>
+                      <tr>
+                        <th>Designation</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let p of  bmdata">
+                      <td>{{p.bm_designation}}</td>
+                      <td>{{p.bm_name}}</td>
+                      <td>{{p.bm_phone}}</td>
+                      <td>{{p.bm_email}}</td>
+                     </tr>
+                  </tbody>
+              </table>
+              </div>
+    </section>
+</div>

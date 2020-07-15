@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormArray, FormControl, Validators, FormBuilder  } from '@angular/forms';
 import { AdminService } from '../admin.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-adminresident',
   templateUrl: './adminresident.component.html',
@@ -16,7 +17,7 @@ export class AdminresidentComponent implements OnInit {
   comtypebyid;
   wtroles;
   blocknames;
-  constructor(private fb: FormBuilder, private adminservice: AdminService) {
+  constructor(private fb: FormBuilder, private adminservice: AdminService, private toastr: ToastrService) {
     this.ResidentReg = this.fb.group({
       communityid: new FormControl(),
       block: new FormControl(),
@@ -121,8 +122,8 @@ export class AdminresidentComponent implements OnInit {
   AddResident() {
     console.log(this.ResidentReg.value);
     this.adminservice.AddResident(this.ResidentReg.value).subscribe(
-      res => alert('Resident successfully registered'),
-      err => alert('Error Resident registration')
+      res => this.toastr.success('Registration success..', 'SUCCESS'),
+      err => this.toastr.error('Error At Registation.', 'ERROR')
     );
     this.ResidentReg.reset();
   }

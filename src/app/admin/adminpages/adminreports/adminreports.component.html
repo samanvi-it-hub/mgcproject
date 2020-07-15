@@ -1,0 +1,51 @@
+<div>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1 id="cr">
+        Reports
+        <!-- <small>Control panel</small> -->
+      </h1>
+      <ol class="breadcrumb">
+        <li><i class="fa fa-dashboard"></i>Home</li>
+        <li class="active">Reports</li>
+      </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-aqua" [routerLink]="'ownerreports'">
+            <div class="inner">
+              <p>Owner Reports</p>
+            </div>
+          </div>
+        </div><!-- ./col -->
+          <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-aqua"  [routerLink]="'tenantreports'">
+              <div class="inner">
+                 <p>Tenant Reports</p>
+              </div>
+            </div>
+          </div><!-- ./col -->
+          <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-aqua" [routerLink]="'residentreports'">
+              <div class="inner">
+                <p>Resident Reports</p>
+              </div>
+            </div>
+          </div><!-- ./col -->
+          <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-aqua">
+              <div class="inner">
+                <p>Accounting Reports</p>
+              </div>
+            </div>
+          </div><!-- ./col -->
+      </div>
+       <router-outlet></router-outlet>
+    </section>
+  </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@angular/forms';
 import { UsernameValidator } from '../validations/validator';
 import { AdminService } from '../admin.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-adminboardmembers',
   templateUrl: './adminboardmembers.component.html',
@@ -18,7 +19,7 @@ export class AdminboardmembersComponent implements OnInit {
   flats;
  // on = this.owners[0].owner_name;
 
-  constructor(private fb: FormBuilder,  private adminservice: AdminService) {
+  constructor(private fb: FormBuilder,  private adminservice: AdminService, private toastr: ToastrService) {
     this.BmForm = this.fb.group({
       commid: new FormControl('', Validators.required),
       startdate: new FormControl('', Validators.required),
@@ -143,8 +144,8 @@ export class AdminboardmembersComponent implements OnInit {
   BmReg() {
     console.log(this.BmForm.value);
     this.adminservice.Boardmembers(this.BmForm.value).subscribe(
-      res => alert('Board Member Registration Successful'),
-      err => alert('Error At Registration')
+      res => this.toastr.success('Registration Success..', 'SUCCESS'),
+      err => this.toastr.error('Error At Registration', 'ERROR')
     );
 
     this.BmForm.reset();

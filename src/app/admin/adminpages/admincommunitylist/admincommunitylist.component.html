@@ -1,0 +1,193 @@
+<div>
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+   <h1 id="cr">
+     Community List
+     <!-- <small>Control panel</small> -->
+   </h1>
+   <ol class="breadcrumb">
+     <li><i class="fa fa-dashboard"></i>Home</li>
+     <li class="active">comunity list</li>
+   </ol>
+ </section>
+ <!-- Button trigger modal -->
+<button type="button" id="btn" class="btn btn-primary" [routerLink]="'/admin/community'">ADD COMMUNITY</button>
+
+
+
+ <!-- Main content -->
+ <section class="content">
+  <div class="box box-primary">
+    <table #dataTable class="display" style="width:100%">
+      <thead>
+          <tr>
+           <th>Name</th>
+           <th>Address</th>
+           <th>Contact Person-1</th>
+           <th>Contact Person-2</th>
+           <th>Action</th>
+          </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of communities">
+          <td>{{c.sis_community_name}}</td>
+          <td>{{c.sis_community_city}}</td>
+          <td>{{c.sis_community_spoc1_name}}</td>
+          <td>{{c.sis_community_spoc2_name}}</td>
+          <td><button type="button" id="edit" (click)="Data(c.sis_community_id,c.sis_community_spoc1_name,c.sis_community_spoc1_email,c.sis_community_spoc1_ph,c.sis_community_spoc2_name,c.sis_community_spoc2_email,c.sis_community_spoc2_ph)" class="btn btn-sm btn-primary fa fa-pencil noUnderlineCustom text-white" data-toggle="modal" data-target="#editcommunity"></button></td>
+        </tr>
+      </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="editcommunity" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLongTitle">Edit Community</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="EditCommunity" (ngSubmit)="EditComData()">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="name">Contact Person-1 Name</label>
+                  <input type="text" formControlName="persononename" class="form-control"  placeholder="Name" required>
+                  <div *ngIf="form.persononename.invalid && (form.persononename.disabled || form.persononename.touched)">
+                    <span *ngIf="form.persononename.errors.required">
+                      name is required,Special Charecters not allowed.
+                    </span>
+                    <span *ngIf="form.persononename.errors.minlength">
+                      name should not small.
+                    </span>
+                    <span *ngIf="form.persononename.errors.pattern">
+                      Enter valid name.
+                    </span>
+                    <span *ngIf="form.persononename.errors.maxlength">
+                      name should not longer than 20 charecters
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="name">Contact Person-1 Phone</label>
+                  <input type="text" formControlName="persononephone" class="form-control"  placeholder="Phone" required>
+                  <div *ngIf="form.persononephone.invalid && (form.persononephone.disabled || form.persononephone.touched)" >
+                    <span *ngIf="form.persononephone.errors.pattern">
+                      Enter Valid Phone Number.
+                    </span>
+                    <span *ngIf="form.persononephone.errors.required">Phone Number required.
+                    </span>
+                    <span *ngIf="form.persononephone.errors.maxlength">Enter 10 digit mobile number (excluding +91).
+                    </span>
+                    <span *ngIf="form.persononephone.errors.minlength">Enter 10 digit mobile number (excluding +91).
+                    </span>
+                 </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="name">Contact Person-1 Email</label>
+                  <input type="text" formControlName="persononeemail" class="form-control"  placeholder="Email" required>
+                  <div *ngIf="form.persononeemail.invalid && (form.persononeemail.disabled || form.persononeemail.touched)"  >
+                    <span *ngIf="form.persononeemail.errors.pattern">
+                      Enter Valid email ID.
+                    </span>
+                    <span *ngIf="form.persononeemail.errors.required">Email required.
+                    </span>
+                 </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="name">Contact Person-2 Name</label>
+                  <input type="text" formControlName="persontwoname" class="form-control"  placeholder="Name" required>
+                </div>
+                <div *ngIf="form.persontwoname.invalid && (form.persontwoname.disabled || form.persontwoname.touched)">
+                  <span *ngIf="form.persontwoname.errors.required">
+                    name is required,Special Charecters not allowed.
+                  </span>
+                  <span *ngIf="form.persontwoname.errors.minlength">
+                    name should not small.
+                  </span>
+                  <span *ngIf="form.persontwoname.errors.pattern">
+                    Enter valid name.
+                  </span>
+                  <span *ngIf="form.persontwoname.errors.maxlength">
+                    name should not longer than 20 charecters
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="name">Contact Person-2 Phone</label>
+                  <input type="text" formControlName="persontwophone" class="form-control"  placeholder="Phone" required>
+                  <div *ngIf="form.persontwophone.invalid && (form.persontwophone.disabled || form.persontwophone.touched)" >
+                    <span *ngIf="form.persontwophone.errors.pattern">
+                      Enter Valid Phone Number.
+                    </span>
+                    <span *ngIf="form.persontwophone.errors.required">Phone Number required.
+                    </span>
+                    <span *ngIf="form.persontwophone.errors.maxlength">Enter 10 digit mobile number (excluding +91).
+                    </span>
+                    <span *ngIf="form.persontwophone.errors.minlength">Enter 10 digit mobile number (excluding +91).
+                    </span>
+                 </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="name">Contact Person-2 Email</label>
+                  <input type="text" formControlName="persontwoemail" class="form-control"  placeholder="Email" required>
+                  <div *ngIf="form.persontwoemail.invalid && (form.persontwoemail.disabled || form.persontwoemail.touched)"  >
+                    <span *ngIf="form.persontwoemail.errors.pattern">
+                      Enter Valid email ID.
+                    </span>
+                    <span *ngIf="form.persontwoemail.errors.required">Email required.
+                    </span>
+                 </div>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div>
+              <div class="form-group" >
+                <label for="name">Maintenance Indicator</label>
+                <select class="form-control" formControlName='indicator'>
+                  <option *ngFor="let i of maintype" value="{{i.maint_type_id}}">{{i.maint_type_name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="name">Amount</label>
+              <input type="text" formControlName="amount" class="form-control"  placeholder="Amount" required>
+              <div *ngIf="form.amount.invalid && (form.amount.disabled || form.amount.touched)" >
+                <span *ngIf="form.amount.errors.required">
+                  Amount is required.
+                </span>
+                <span *ngIf="form.amount.errors.pattern">
+                  Enter amount.
+                </span>
+            </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit"  class="btn btn-primary" [disabled]='!EditCommunity.valid'>UPDATE</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OwnerserviceService } from '../ownerservice.service';
 import { FormGroup, FormArray, FormControl, Validators, FormBuilder  } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-ownerproperty',
   templateUrl: './ownerproperty.component.html',
@@ -9,6 +10,7 @@ import { FormGroup, FormArray, FormControl, Validators, FormBuilder  } from '@an
 export class OwnerpropertyComponent implements OnInit {
   a = JSON.parse(sessionStorage.getItem('sdata'));
   unitid = this.a[0].unit_id;
+  ownerid = this.a[0].owner_id;
   unitsdata;
   carpetarea;
   type;
@@ -22,14 +24,19 @@ export class OwnerpropertyComponent implements OnInit {
   lights;
   fans;
   ac;
+  ownerdata;
+  occupancy;
   fixtureUpdate: FormGroup;
 
-  constructor(private service: OwnerserviceService, private frmBuilder: FormBuilder) {
+  constructor(private service: OwnerserviceService, private frmBuilder: FormBuilder, private toastr: ToastrService) {
     this.fixtureUpdate = this.frmBuilder.group({
       lights: new FormControl('', [Validators.pattern('[0-9]*')]),
       fans: new FormControl('', [Validators.pattern('[0-9]*') ]),
       ac: new FormControl('', [ Validators.pattern('[0-9]*')]),
-      uid: new FormControl(this.unitid)
+      uid: new FormControl(this.unitid),
+      occupancy: new FormControl(),
+      h_type: new FormControl(),
+      ownerid: new FormControl(this.ownerid)
     }
     );
   }
@@ -58,18 +65,35 @@ export class OwnerpropertyComponent implements OnInit {
         this.fixtureUpdate.get('lights').setValue(data[0].no_of_lights);
         this.fixtureUpdate.get('fans').setValue(data[0].no_of_fans);
         this.fixtureUpdate.get('ac').setValue(data[0].no_of_ac);
+        this.fixtureUpdate.get('h_type').setValue(data[0].type);
       }
     );
   }
-  update() {
-    // console.log(this.fixtureUpdate.value);
-    this.service.fixturedata(this.fixtureUpdate.value).subscribe(
-      res => alert('successfully updated..'),
-      err => alert('Error at updating data..')
+
+  getownerdata(id) {
+    this.service.getownerbyid(id).subscribe(
+      data => {
+        this.ownerdata = data;
+        console.log('ownerdata', data[0].occupancy);
+        this.occupancy = data[0].occupancy;
+        this.fixtureUpdate.get('occupancy').setValue(data[0].occupancy);
+      }
     );
   }
 
+  update() {
+    // console.log(this.fixtureUpdate.value);
+    this.service.fixturedata(this.fixtureUpdate.value).subscribe(
+      res =>  this.toastr.success('Data Update Successfull', 'SUCCESS'),
+      err => this.toastr.error('Data Not Updated', 'ERROR')
+    );
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
+  }
+
   ngOnInit(): void {
+    this.getownerdata(this.ownerid);
     this.getUnitDetails(this.unitid);
   }
 

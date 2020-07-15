@@ -15,6 +15,14 @@ import { SupervheaderComponent } from '../layout/supervheader/supervheader.compo
 import { SupervfooterComponent } from '../layout/supervfooter/supervfooter.component';
 import { SupervsidenavComponent } from '../layout/supervsidenav/supervsidenav.component';
 import { SupervboardmembersComponent } from './supervboardmembers/supervboardmembers.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { PdfMakeWrapper } from 'pdfmake-wrapper';
+import pdfFonts from 'pdfmake/build/vfs_fonts'; // fonts provided for pdfmake
+import { pdfMake } from 'pdfmake/build/pdfmake';
+
+// Set the fonts to use
+PdfMakeWrapper.setFonts(pdfFonts);
 
 
 @NgModule({
@@ -31,11 +39,13 @@ import { SupervboardmembersComponent } from './supervboardmembers/supervboardmem
                   SupervheaderComponent,
                   SupervfooterComponent,
                   SupervsidenavComponent,
-                  SupervboardmembersComponent
+                  SupervboardmembersComponent,
                 ],
   imports: [
+    ReactiveFormsModule,
     CommonModule,
-    SupervisorpagesRoutingModule
+    SupervisorpagesRoutingModule,
+    RouterModule
   ]
 })
 export class SupervisorpagesModule { }

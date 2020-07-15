@@ -129,5 +129,77 @@ export class AdminService {
     return this.http.post('http://localhost:5000/ganesh', data, options);
   }
 
+  SendMailToAll(data) {
+    const httpheaders = new HttpHeaders()
+    .set('Content-Type', 'application/json')
+    .set('**Accept**', 'application/json');
+    const options = {
+      headers: httpheaders
+    };
+    return this.http.post('http://localhost:5000/sendmailtoresidents', data, options);
+  }
+  searchowner(data): Observable<any> {
+    const httpheaders = new HttpHeaders()
+    .set('Content-Type', 'application/json')
+    .set('**Accept**', 'application/json');
+    const options = {
+      headers: httpheaders
+    };
+    return this.http.post('http://localhost:5000/adminownerreports', data, options);
+
+  }
+
+  searchtenant(data): Observable<any> {
+    const httpheaders = new HttpHeaders()
+    .set('Content-Type', 'application/json')
+    .set('**Accept**', 'application/json');
+    const options = {
+      headers: httpheaders
+    };
+    return this.http.post('http://localhost:5000/admintenantreports', data, options);
+
+  }
+
+  searchresident(data): Observable<any> {
+    const httpheaders = new HttpHeaders()
+    .set('Content-Type', 'application/json')
+    .set('**Accept**', 'application/json');
+    const options = {
+      headers: httpheaders
+    };
+    return this.http.post('http://localhost:5000/adminresidentreports', data, options);
+  }
+
+  AllCommunities() {
+    return this.http.get<any>(`http://localhost:5000/allcommunities`);
+  }
+
+
+
+  GetMaintType() {
+    return this.http.get<any>(`http://localhost:5000/maintenancetype`);
+  }
+  CommunityEdit(data): Observable<any> {
+    const httpheaders = new HttpHeaders()
+    .set('Content-Type', 'application/json')
+    .set('**Accept**', 'application/json');
+    const options = {
+      headers: httpheaders
+    };
+    return this.http.post('http://localhost:5000/communityedit', data, options);
+  }
+
+  Boardmemberssearch(data): Observable<any> {
+    const httpheaders = new HttpHeaders()
+    .set('Content-Type', 'application/json')
+    .set('**Accept**', 'application/json');
+    const options = {
+      headers: httpheaders
+    };
+    return this.http.post('http://localhost:5000/boardmemberssearch', data, options);
+
+  }
+
+
 
 }

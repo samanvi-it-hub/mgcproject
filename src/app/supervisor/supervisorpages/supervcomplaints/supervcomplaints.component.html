@@ -10,8 +10,245 @@
       <li class="active">complaints</li>
     </ol>
   </section>
+  <button type="button" id="btn1" class="btn btn-primary" data-toggle="modal" data-target="#assigntask">ASSIGN TASK</button>
+  <button type="button" id="btn2" class="btn btn-primary" data-toggle="modal" data-target="#raisecomplaint">REGISTER COMPLAINT</button>
   <!-- Main content -->
   <section class="content">
+    <div class="box box-primary">
+      <table #dataTable class="display" style="width:100%">
+        <thead>
+            <tr>
+              <th>Complaint</th>
+              <th>Description</th>
+              <th>Date</th>
+              <th>Action</th>
+              <th>Track</th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let c of allcompnaints">
+            <td>{{c.complaint}}</td>
+            <td>{{c.complaint_description}}</td>
+            <td>{{c.complaint_date}}</td>
+            <td><button type="button"  id="edit" (click)="EditCData(c.comp_id,c.complaint,c.complaint_description,c.owner_comments,c.complaint_date,c.emp_id)" class="btn btn-sm btn-primary fa fa-pencil noUnderlineCustom text-white" data-toggle="modal" data-target="#complaintedit"></button> </td>
+            <td><button type="button" id="view" (click)="ViewCData(c.comp_id)" class="btn btn-sm btn-primary fa fa-search noUnderlineCustom text-white" data-toggle="modal" data-target="#comphistory"></button> </td>
+          </tr>
+        </tbody>
+    </table>
+    </div>
 
   </section>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="assigntask" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLongTitle">Assign Task</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="AssignTask" (ngSubmit)="SendAssignTask()">
+          <div class="form-group">
+            <label>Employee Name</label>
+            <select class="form-control" formControlName='aempid'>
+              <option *ngFor="let e of allemployees" value="{{e.emp_id}}">{{e.emp_name}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Assign Task</label>
+            <select class="form-control" formControlName='atask'>
+              <option *ngFor="let t of alltasklist" value="{{t.task_name}}">{{t.task_name}}</option>
+            </select>
+          </div>
+        <div class="modal-footer">
+          <button type="submit"  class="btn btn-primary" [disabled]="!AssignTask.valid">SUBMIT</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="raisecomplaint" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLongTitle">Register Complaint</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="ComplaintReg" (ngSubmit)="SendComplaint()">
+          <div *ngIf="type == 1">
+            <div class="form-group">
+              <label>House Details</label>
+              <select class="form-control" formControlName='unitid'>
+                <option *ngFor="let u of allunits" value="{{u.unit_id}}">{{u.blockflat_name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group" *ngIf="type === 2">
+            <label>House Details</label>
+            <select class="form-control" formControlName='hunitid'>
+              <option *ngFor="let u of allunits" value="{{u.unit_id}}">{{u.house_num}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Complaint</label>
+            <input type="text"  class="form-control" formControlName="complaint" />
+          </div>
+          <div *ngIf="form.complaint.invalid && (form.complaint.disabled || form.complaint.touched)"  >
+             <span *ngIf="form.complaint.errors.required">
+               Field is Required.
+             </span>
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <input type="textarea"  class="form-control" formControlName="description"/>
+          </div>
+          <div *ngIf="form.description.invalid && (form.description.disabled || form.description.touched)"  >
+             <span *ngIf="form.description.errors.required">
+               Field is Required.
+             </span>
+           </div>
+          <div class="form-group">
+            <label>Comments</label>
+            <input type="textarea"  class="form-control" formControlName="comments" />
+          </div>
+          <div class="checkbox">
+           <label>
+             <input type="checkbox"  formControlName="urgent"> Check the box if complaint is urgent.
+           </label>
+         </div>
+          <div class="modal-footer">
+             <button type="submit" id="sb" class="btn btn-primary" [disabled]="!ComplaintReg.valid">SUBMIT</button>
+             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         </div>
+       </form>
+      </div>
+    </div>
+  </div>
+ </div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="complaintedit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLongTitle">Edit Complaint</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="EditComplaintReg" (ngSubmit)="SendEditComplaint()">
+          <div class="form-group">
+            <label>Complaint Date</label>
+            <input type="text"  class="form-control" formControlName="compdate" readonly/>
+          </div>
+          <div class="form-group">
+            <label>Complaint</label>
+            <input type="text"  class="form-control" formControlName="complaint" />
+          </div>
+          <div *ngIf="form.complaint.invalid && (form.complaint.disabled || form.complaint.touched)"  >
+             <span *ngIf="form.complaint.errors.required">
+               Field is Required.
+             </span>
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <input type="textarea"  class="form-control" formControlName="description"/>
+          </div>
+          <div *ngIf="form.description.invalid && (form.description.disabled || form.description.touched)"  >
+             <span *ngIf="form.description.errors.required">
+               Field is Required.
+             </span>
+           </div>
+          <div class="form-group">
+            <label>Comments</label>
+            <input type="textarea"  class="form-control" formControlName="comments" />
+          </div>
+          <div class="form-group">
+            <label>Employee Name</label>
+            <select class="form-control" formControlName='empid'>
+              <option *ngFor="let e of allemployees" value="{{e.emp_id}}">{{e.emp_name}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Supervisor Comments</label>
+            <input type="textarea"  class="form-control" formControlName="supcomments" />
+          </div>
+          <div class="form-group">
+            <label>Start Date</label>
+            <input type="date"  class="form-control" formControlName="startdate" />
+          </div>
+          <div class="form-group">
+            <label>Work Status</label>
+            <select class="form-control" formControlName='status'>
+              <option value="OPEN">OPEN</option>
+              <option value="INPROGRESS">IN PROGRESS</option>
+              <option value="REJECTED">REJECTED</option>
+              <option value="CANCLED">CANCLED</option>
+              <option value="CLOSED">CLOSED</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>End Date</label>
+            <input type="date"  class="form-control" formControlName="enddate" />
+          </div>
+          <div class="modal-footer">
+             <button type="submit" id="sb" class="btn btn-primary" [disabled]="!EditComplaintReg.valid">UPDATE</button>
+             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         </div>
+       </form>
+      </div>
+    </div>
+  </div>
+ </div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="comphistory" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLongTitle">Complaint History</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="box box-primary">
+          <table #dataTable class="display" style="width:100%">
+            <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let h of history">
+                <td>{{h.date}}</td>
+                <td>{{h.status}}</td>
+              </tr>
+            </tbody>
+        </table>
+        </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+      </div>
+    </div>
+  </div>
+ </div>
+
+

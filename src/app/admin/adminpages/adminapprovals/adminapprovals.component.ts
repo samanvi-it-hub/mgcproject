@@ -4,6 +4,7 @@ import { AdminService } from '../admin.service';
 import * as $ from 'jquery';
 import 'datatables.net';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-adminapprovals',
   templateUrl: './adminapprovals.component.html',
@@ -16,10 +17,10 @@ export class AdminapprovalsComponent implements OnInit {
   communities;
   records;
 
-  constructor(private fb: FormBuilder, private adminservice: AdminService, private router: Router) {
+  constructor(private fb: FormBuilder, private adminservice: AdminService, private router: Router,  private toastr: ToastrService) {
     this.searchReg = this.fb.group({
       community: new FormControl('', Validators.required),
-      status: new FormControl('', Validators.required)
+      status: new FormControl('pending', Validators.required)
     });
   }
   get form() {
@@ -47,10 +48,12 @@ export class AdminapprovalsComponent implements OnInit {
   send(id) {
     console.log(id);
     this.adminservice.approveowner(id).subscribe(
-      res => alert('Approve Successfull..please refresh the page'),
-      err => alert('Error At Approve')
+      res => this.toastr.success('Approved..', 'SUCCESS'),
+      err => this.toastr.error('Error At Approve', 'ERROR')
     );
-    // this.router.navigate(['admin/approvals']);
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   }
 
   ngOnInit(): void {

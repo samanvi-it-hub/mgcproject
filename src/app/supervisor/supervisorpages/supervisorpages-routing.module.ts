@@ -12,6 +12,7 @@ import { SupervreceiptComponent } from './supervreceipt/supervreceipt.component'
 import { SupervboardmembersComponent } from './supervboardmembers/supervboardmembers.component';
 
 
+
 const routes: Routes = [
   { path: '',
   component: SupervisorpagesComponent,
@@ -26,9 +27,9 @@ const routes: Routes = [
     {path: 'payments', component: SupervpaymentsComponent},
     {path: 'receipts', component: SupervreceiptComponent},
     {path: 'boardmembers', component: SupervboardmembersComponent},
-    {path: 'logout', loadChildren: () => import('../../login/login.module').then(m => m.LoginModule)},
+    {path: 'logout', loadChildren: () => import('../../login/login.module').then(m => m.LoginModule)}
   ]
-}
+},
 ];
 
 @NgModule({

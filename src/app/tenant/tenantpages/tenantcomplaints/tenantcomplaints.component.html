@@ -1,0 +1,133 @@
+
+<div>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+     <h1 id="cr">
+       Complaints
+       <!-- <small>Control panel</small> -->
+     </h1>
+     <ol class="breadcrumb">
+       <li><i class="fa fa-dashboard"></i>Home</li>
+       <li class="active">complaints</li>
+     </ol>
+   </section>
+   <!-- Button trigger modal -->
+  <button type="button" id="btn" class="btn btn-primary" data-toggle="modal" data-target="#tenant">
+   Raise Complaint
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="tenant" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h4 class="modal-title" id="exampleModalLongTitle">Raise Complaint</h4>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       <div class="modal-body">
+         <form [formGroup]="ComplaintReg" (ngSubmit)="SendComplaint()">
+           <div class="form-group">
+             <label>Complaint</label>
+             <input type="text"  class="form-control" formControlName="complaint" />
+           </div>
+           <div *ngIf="form.complaint.invalid && (form.complaint.disabled || form.complaint.touched)"  >
+              <span *ngIf="form.complaint.errors.required">
+                Field is Required.
+              </span>
+           </div>
+           <div class="form-group">
+             <label>Description</label>
+             <input type="textarea"  class="form-control" formControlName="description"/>
+           </div>
+           <div *ngIf="form.description.invalid && (form.description.disabled || form.description.touched)"  >
+              <span *ngIf="form.description.errors.required">
+                Field is Required.
+              </span>
+            </div>
+           <div class="form-group">
+             <label>Comments</label>
+             <input type="textarea"  class="form-control" formControlName="comments" />
+           </div>
+           <div class="checkbox">
+            <label>
+              <input type="checkbox"  formControlName="urgent"> Check the box if complaint is urgent.
+            </label>
+          </div>
+           <div class="modal-footer">
+              <button type="submit" id="sb" class="btn btn-primary" [disabled]="!ComplaintReg.valid">SUBMIT</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </form>
+       </div>
+     </div>
+   </div>
+  </div>
+  
+     <!-- Main content -->
+     <section class="content">
+       <div class="box box-primary">
+         <table #dataTable class="display" style="width:100%">
+           <thead>
+               <tr>
+                <th>Id</th>
+                <th>Complaint</th>
+                <th>Description</th>
+                <th>Comments</th>
+                <th>Complaint Date</th>
+                <th>Status</th>
+                <th>Edit</th>
+                <th>Cancel</th>
+               </tr>
+           </thead>
+           <tbody>
+             <tr *ngFor="let c of allcomplaints">
+               <td>{{c.comp_id}}</td>
+               <td>{{c.complaint}}</td>
+               <td>{{c.complaint_description}}</td>
+               <td>{{c.tent_comments}}</td>
+               <td>{{c.complaint_date}}</td>
+               <td>{{c.status}}</td>
+               <td><button type="button"  (click)="EditComplaint(c.comp_id,c.complaint,c.complaint_description,c.tent_comments)" class="btn btn-sm btn-primary fa fa-pencil noUnderlineCustom text-white"  data-toggle="modal"  data-target="#tenantedit"></button> </td>
+               <td><button type="button"  (click)="Cancel(c.comp_id)" class="btn btn-sm btn-danger fa fa-close noUnderlineCustom text-white"></button></td>
+             </tr>
+           </tbody>
+       </table>
+       </div>
+     </section>
+     <!-- Modal -->
+       <div class="modal fade" id="tenantedit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+         <div class="modal-dialog modal-dialog-centered" role="document">
+           <div class="modal-content">
+             <div class="modal-header">
+               <h5 class="modal-title" id="exampleModalLongTitle">Edit Complaint</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+               </button>
+             </div>
+             <div class="modal-body">
+               <form [formGroup]="EdittentComplaint" (ngSubmit)="EditComplaintSubmit()">
+                 <div class="form-group">
+                   <label for="name">Complaint</label>
+                   <input type="text" class="form-control" formControlName="ecomplaint" placeholder="Name" required>
+                </div>
+                <div class="form-group">
+                  <label for="name">Description</label>
+                  <input type="text" class="form-control" formControlName="edescription" placeholder="Description" required>
+               </div>
+               <div class="form-group">
+                <label for="name">Comments</label>
+                <input type="text" class="form-control" formControlName="ecomments" placeholder="Comments" required>
+              </div>
+              <div class="modal-footer">
+                <button type="submit"  class="btn btn-primary">SUBMIT</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+               </form>
+             </div>
+           </div>
+         </div>
+       </div>
+  </div>
+  

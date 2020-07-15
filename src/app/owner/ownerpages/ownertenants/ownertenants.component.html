@@ -75,16 +75,61 @@
          <div class="form-group">
           <label>Occupancy Date</label>
           <input type="date"  class="form-control" formControlName="startdate" />
-        </div>
+         </div>
         <div *ngIf="form.startdate.invalid && (form.startdate.disabled || form.startdate.touched)" >
           <span *ngIf="form.startdate.errors.required">Date required.
           </span>
         </div>
-          <button type="submit" id="sb" class="btn btn-primary">SUBMIT</button>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox"  value="1" (change)="Echeckvalue($event)" formControlName="acheck"> Check the box if you want to give access to tenant.
+          </label>
+        </div>
+        <div *ngIf="acheck == '1'">
+            <div class="form-group">
+              <label for="name">User Name</label>
+              <input type="text" formControlName="username" class="form-control"  placeholder="Name" required>
+            </div>
+            <div *ngIf="form.username.invalid && (form.username.disabled || form.username.touched)"  >
+              <span *ngIf="form.username.errors.required">
+                name is required,Special Charecters not allowed.
+              </span>
+              <span *ngIf="form.username.errors.minlength">
+                name should not small.
+              </span>
+              <span *ngIf="form.username.errors.pattern">
+                Enter valid name.
+              </span>
+              <span *ngIf="form.username.errors.maxlength">
+                name should not longer than 10 charecters
+              </span>
+            </div>
+          <div class="form-group">
+            <label for="name">Password</label>
+            <input type="password" formControlName="password" class="form-control"  placeholder="Password" required>
+          </div>
+          <div *ngIf="form.password.invalid && (form.password.dirty || form.password.touched)">
+            <span *ngIf="form.password.errors.passwordValidity; else elseBlock">Invalid password</span>
+            <ng-template  #elseBlock>
+                <span>password required</span>
+            </ng-template>
+          </div>
+          <div class="form-group">
+            <label for="name">Confirm Password</label>
+            <input type="password" formControlName="confpassword" class="form-control"  placeholder="Confirm Password" required>
+          </div>
+          <div *ngIf="form.confpassword.invalid && (form.confpassword.dirty || form.confpassword.touched)">
+            <span *ngIf="form.confpassword.errors.passwordValidity; else elseBlock">Password Does not match</span>
+            <ng-template  #elseBlock>
+                <span>Confirm password required</span>
+            </ng-template>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit"  class="btn btn-primary">SUBMIT</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -105,21 +150,13 @@
               </tr>
           </thead>
           <tbody>
-            <!-- <tr *ngFor="let t of alltenants">
+            <tr *ngFor="let t of alltenants">
               <td>{{t.tent_id}}</td>
               <td>{{t.tent_name}}</td>
               <td>{{t.tent_phone}}</td>
               <td>{{t.tent_email}}</td>
               <td>{{t.tent_status}}</td>
-              <td><button type="button" id="ga"  class="btn btn-sm btn-primary fa fa-pencil noUnderlineCustom text-white" data-toggle="modal" data-target="#tenantedit"></button> </td>
-            </tr> -->
-            <tr>
-              <td>1</td>
-              <td>ganesh</td>
-              <td>9638527485</td>
-              <td>ganesh@gmail.com</td>
-              <td>Active</td>
-              <td><button type="button" id="ga"  class="btn btn-sm btn-primary fa fa-pencil noUnderlineCustom text-white" data-toggle="modal" data-target="#tenantedit"></button> </td>
+              <td><button type="button" id="edit" (click)="Data(t.tent_id,t.tent_name,t.tent_phone,t.tent_email,t.tent_status)" class="btn btn-sm btn-primary fa fa-pencil noUnderlineCustom text-white" data-toggle="modal" data-target="#tenantedit"></button> </td>
             </tr>
           </tbody>
       </table>
@@ -130,22 +167,74 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Edit Tenant</h5>
+              <h4 class="modal-title" id="exampleModalLongTitle">Edit Tenant</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              <form [formGroup]="TenantReg" (ngSubmit)="tenantRegistration()">
+              <form [formGroup]="EditTenant" (ngSubmit)="EditTenantData()">
                 <div class="form-group">
-                  <label for="name">Name</label>
-                  <input type="text" name="surname" class="form-control" id="name" placeholder="Name" required>
-              </div>
+                  <label for="name">User Name</label>
+                  <input type="text" formControlName="uname" class="form-control"  placeholder="Name" required>
+                </div>
+                <div *ngIf="eform.uname.invalid && (eform.uname.disabled || eform.uname.touched)"  >
+                  <span *ngIf="eform.uname.errors.required">
+                    name is required,Special Charecters not allowed.
+                  </span>
+                  <span *ngIf="eform.uname.errors.minlength">
+                    name should not small.
+                  </span>
+                  <span *ngIf="eform.uname.errors.pattern">
+                    Enter valid name.
+                  </span>
+                  <span *ngIf="eform.uname.errors.maxlength">
+                    name should not longer than 10 charecters
+                  </span>
+                </div>
+                <div class="form-group">
+                  <label for="name">Password</label>
+                  <input type="password" formControlName="password" class="form-control"  placeholder="Password" required>
+                </div>
+                <div *ngIf="eform.password.invalid && (eform.password.dirty || eform.password.touched)">
+                  <span *ngIf="eform.password.errors.passwordValidity; else elseBlock">Invalid password</span>
+                  <ng-template  #elseBlock>
+                      <span>password required</span>
+                  </ng-template>
+                </div>
+                <div class="form-group">
+                  <label for="name">Confirm Password</label>
+                  <input type="password" formControlName="confpassword" class="form-control"  placeholder="Confirm Password" required>
+                </div>
+                <div *ngIf="eform.confpassword.invalid && (eform.confpassword.dirty || eform.confpassword.touched)">
+                  <span *ngIf="eform.confpassword.errors.passwordValidity; else elseBlock">Password Does not match</span>
+                  <ng-template  #elseBlock>
+                      <span>Confirm password required</span>
+                  </ng-template>
+                </div>
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox"  value="1" (change)="checkvalue($event)" formControlName="tcheck"> Check the box if tenant vacated.
+                  </label>
+                </div>
+                <div *ngIf="check == '1'">
+                  <div class="form-group">
+                    <label for="name">Status</label>
+                    <select class="form-control" formControlName='status'>
+                      <option value="Active">ACTIVE</option>
+                      <option value="Inactive">INACTIVE</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Vacated Date</label>
+                    <input type="date"  class="form-control" formControlName="vdate" />
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit"  class="btn btn-primary" [disabled]='!EditTenant.valid'>SUBMIT</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
               </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Submit</button>
             </div>
           </div>
         </div>

@@ -10,6 +10,7 @@ import { OwnerboardmembersComponent } from './ownerboardmembers/ownerboardmember
 import { OwnermaintanceComponent } from './ownermaintance/ownermaintance.component';
 import { OwnercomplaintComponent } from './ownercomplaint/ownercomplaint.component';
 import { OwnermemberComponent } from './ownermember/ownermember.component';
+import { OwnerreceiptsComponent } from './ownerreceipts/ownerreceipts.component';
 
 
 const routes: Routes = [
@@ -26,6 +27,7 @@ const routes: Routes = [
       {path: 'maintance', component: OwnermaintanceComponent},
       {path: 'complaints', component: OwnercomplaintComponent},
       {path: 'members', component: OwnermemberComponent},
+      {path: 'receipts', component: OwnerreceiptsComponent},
       {path: 'logout', loadChildren: () => import('../../login/login.module').then(m => m.LoginModule)},
     ]
   }

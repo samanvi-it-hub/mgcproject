@@ -3,6 +3,7 @@ import { FormGroup, FormArray, FormControl, Validators, FormBuilder  } from '@an
 import * as $ from 'jquery';
 import 'datatables.net';
 import { OwnerserviceService } from '../ownerservice.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-ownertenants',
   templateUrl: './ownertenants.component.html',
@@ -17,8 +18,11 @@ export class OwnertenantsComponent implements OnInit {
   ownerid = this.a[0].owner_id;
   alltenants;
   TenantReg: FormGroup;
+  EditTenant: FormGroup;
+  check;
+  acheck;
 
-  constructor(private service: OwnerserviceService, private frmBuilder: FormBuilder) {
+  constructor(private service: OwnerserviceService, private frmBuilder: FormBuilder, private toastr: ToastrService) {
     this.TenantReg = this.frmBuilder.group({
       communityid: new FormControl(),
       unitid: new FormControl(),
@@ -33,7 +37,14 @@ export class OwnertenantsComponent implements OnInit {
       phone: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10),
         Validators.pattern('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-s./0-9]*$')
         ]),
-      startdate: new FormControl('', [Validators.required])
+      startdate: new FormControl('', [Validators.required]),
+      acheck: new FormControl(),
+      username: new FormControl('', [Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(10),
+       ]),
+      password: new FormControl('',  [Validators.required, this.CheckPassword]),
+      confpassword: new FormControl('', [Validators.required, this.CheckPassword]),
     });
   }
 
@@ -47,20 +58,21 @@ export class OwnertenantsComponent implements OnInit {
     this.TenantReg.get('ownerid').setValue(this.a[0].owner_id);
     console.log(this.TenantReg.value);
     this.service.owneraddTenant(this.TenantReg.value).subscribe(
-      res => {
-        if (res === null) {
-          alert('Already Tenant Occuiped...');
-        } else {
-          alert('Tenant Registration Success');
+      res => this.toastr.error('Tenant Registration Success...', 'SUSSESS'),
+      err => {
+        if (err.error.text === 'tenant-exist') {
+          this.toastr.error('Tenant already Exist', 'ERROR');
         }
-      },
-      err => alert(`Error at Tenant Registration`)
+      }
     );
     this.TenantReg.reset();
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
   }
 
-  AllTenants() {
-    this.service.alltenants().subscribe(
+  AllTenants(id) {
+    this.service.alltenants(id).subscribe(
       data => {
         console.log('all tenants', data);
         this.alltenants = data;
@@ -68,20 +80,65 @@ export class OwnertenantsComponent implements OnInit {
       }
     );
   }
-  Data(id) {
-    console.log(id);
+  checkvalue(e) {
+    console.log(e.target.checked);
+    this.check = e.target.checked;
+
   }
 
+  Echeckvalue(e) {
+    this.acheck = e.target.checked;
+  }
 
+  Data(id, name, phone, email, status) {
+    console.log(name);
+    this.EditTenant.get('tid').setValue(id);
+  }
+
+  EditTenantData() {
+    console.log(this.EditTenant.value);
+    this.service.EditTenant(this.EditTenant.value).subscribe(
+      res => this.toastr.success('Tenant Updated', 'SUCCESS'),
+      err => this.toastr.error('Error at tenant update', 'ERROR')
+    );
+    this.EditTenant.reset();
+  }
+  get eform() {
+    return this.EditTenant.controls;
+  }
+
+  CheckPassword(control) {
+    if (control.value != null) {
+      const  conpass = control.value;
+      const pass = control.root.get('password');
+      if (pass) {
+        const password = pass.value;
+        if (conpass !== '' && password !== '') {
+          if (conpass !== password) {
+            return {passwordValidity: true};
+          } else {
+            return null;
+          }
+        }
+      }
+    }
+  }
   ngOnInit(): void {
-    $(() => {
-      $('#ga').on('click', '', (ele) => {
-        const tr = ele.target.parentNode.parentNode;
-        // alert(tr);
-        const firstName = tr.cells[1].textContent;
-        $('#name').val(firstName);
-      });
-    });
+    this.EditTenant = this.frmBuilder.group(
+      {
+        tid: new FormControl(),
+        uname:  new FormControl('', [Validators.required,
+          Validators.minLength(1),
+          Validators.maxLength(10),
+         ]),
+        tcheck: new FormControl(),
+        status: new FormControl(),
+        vdate: new FormControl(),
+        password: new FormControl('',  [Validators.required, this.CheckPassword]),
+        confpassword: new FormControl('', [Validators.required, this.CheckPassword]),
+      }
+    );
+
     setTimeout(() => {
       this.dataTable = $(this.table.nativeElement);
       this.dataTable.dataTable({
@@ -94,9 +151,9 @@ export class OwnertenantsComponent implements OnInit {
           }
        ],
         lengthMenu: [[5, 10, 15], [5, 10, 15]],
-        pageLength: 1});
+        pageLength: 10});
     }, 1000);
-    this.AllTenants();
+    this.AllTenants(this.unitid);
   }
 
 }
